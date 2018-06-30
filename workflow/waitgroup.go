@@ -1,4 +1,4 @@
-package concurrency
+package workflow
 
 import (
 	"sync"
@@ -15,7 +15,6 @@ func (w *WaitGroupWrapper) Wrap(cb func()) {
 		w.Done()
 	}()
 }
-
 
 /**********************************************
  can be used as follows:

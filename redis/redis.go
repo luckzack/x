@@ -13,7 +13,6 @@ type RedisProxy struct {
 	Addr     string
 	Password string
 	DB       int
-	MaxIdle  int
 	Pool     *redis.Pool
 }
 
@@ -26,7 +25,6 @@ func New(addr, password string, maxIdle, maxActive int, idleTimeout time.Duratio
 		Addr:     addr,
 		Password: password,
 		DB:       db,
-		MaxIdle:  maxIdle,
 	}
 	r.Pool = &redis.Pool{
 		MaxIdle:     maxIdle,
