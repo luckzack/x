@@ -1,4 +1,4 @@
-package utils
+package number
 
 import (
 	"fmt"
@@ -52,7 +52,7 @@ func ToBandwidth(raw float64) string {
 }
 
 // 1024=>1,1k
-func HumanizeNumber(raw float64) string{
+func HumanizeNumber(raw float64) string {
 	var t float64 = 1024
 	var d float64 = 1
 
@@ -96,6 +96,5 @@ func HumanizeNumber(raw float64) string{
 	}
 
 	return "TooLarge"
-
 
 }

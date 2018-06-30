@@ -1,4 +1,4 @@
-package utils
+package random
 
 import (
 	"math"
@@ -26,7 +26,7 @@ var (
 // the same random sequence of strings can be generated repeatedly
 // and predictably.
 func RandomSpec0(count uint, start, end int, letters, numbers bool,
-chars []rune, rand *rand.Rand) string {
+	chars []rune, rand *rand.Rand) string {
 	if count == 0 {
 		return ""
 	}
@@ -49,8 +49,8 @@ chars []rune, rand *rand.Rand) string {
 			ch = chars[rand.Intn(gap)+start]
 		}
 		if letters && ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) ||
-		numbers && (ch >= '0' && ch <= '9') ||
-		(!letters && !numbers) {
+			numbers && (ch >= '0' && ch <= '9') ||
+			(!letters && !numbers) {
 			if ch >= rune(56320) && ch <= rune(57343) {
 				if count == 0 {
 					count++
@@ -155,20 +155,22 @@ func RandomInt(max int) int {
 }
 
 // 从0到max中随机出n个不重复的数
-func RandomNInt(max, n int) []int{
-	if max < 0 || n < 0 {return []int{}}
+func RandomNInt(max, n int) []int {
+	if max < 0 || n < 0 {
+		return []int{}
+	}
 
 	arr := []int{}
-	if max < n{
-		for i := 0 ;i <= max; i ++{
+	if max < n {
+		for i := 0; i <= max; i++ {
 			arr = append(arr, i)
 		}
-	}else {
-		for i := 0; i < n; i ++ {
-			RAND:
-			r :=  RandomInt(max)
-			for _, v := range arr{
-				if v == r{
+	} else {
+		for i := 0; i < n; i++ {
+		RAND:
+			r := RandomInt(max)
+			for _, v := range arr {
+				if v == r {
 					goto RAND
 				}
 			}
@@ -179,13 +181,12 @@ func RandomNInt(max, n int) []int{
 }
 
 // [from, to)
-func RandomRange(from, to int) int{
+func RandomRange(from, to int) int {
 	if from == to {
 		return from
 	}
-	if from > to{
+	if from > to {
 		panic("'to' mush be bigger than 'from'")
 	}
 	return RandomInt(to-from) + from
 }
-

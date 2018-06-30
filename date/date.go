@@ -1,4 +1,4 @@
-package utils
+package date
 
 import (
 	"time"
@@ -12,32 +12,30 @@ func UnixTsFormatMinute(ts int64) string {
 	return time.Unix(ts, 0).Format("2006-01-02 15:04")
 }
 
-
-
 func UnixMillisecond() int64 {
 	nano := time.Now().UnixNano()
-	return int64(nano/1000000)
+	return int64(nano / 1000000)
 }
 
-func NowDate() string{
+func NowDate() string {
 	return UnixTsFormat(time.Now().Unix())
 }
 
 //"2016-11-02 05:14:25"
-func Parse(timestr string) (int64, error){
+func Parse(timestr string) (int64, error) {
 	//t, err := time.ParseInLocation("2006-01-02 15:04:05", "2016-11-02 05:14:25", time.Local)
 	t, err := time.ParseInLocation("2006-01-02 15:04:05", timestr, time.Local)
-	if err != nil{
+	if err != nil {
 		return 0, err
 	}
 	return t.Unix(), nil
 }
 
-func DayStartTime(ti time.Time) (int64, error){
+func DayStartTime(ti time.Time) (int64, error) {
 	return Parse(ti.Format("2006-01-02 00:00:00"))
 }
 
-func DayStart(ti time.Time) (string){
+func DayStart(ti time.Time) string {
 	return ti.Format("2006-01-02 00:00:00")
 }
 
@@ -49,7 +47,7 @@ func DayEndTime(ti time.Time) (int64, error) {
 	return i - 1, nil
 }
 
-func IsWeekend(t time.Time) bool{
+func IsWeekend(t time.Time) bool {
 	switch t.Weekday().String() {
 	case "Monday":
 		fallthrough
@@ -68,5 +66,3 @@ func IsWeekend(t time.Time) bool{
 	}
 	return true
 }
-
-
