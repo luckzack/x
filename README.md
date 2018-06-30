@@ -2,6 +2,6 @@
 
 #### TODO
 
-[x] xstrings
-[x] xslice
-[ ] xhashmap 
+- [x] xstrings
+- [x] xslice
+- [ ] xhashmap 
