@@ -5,3 +5,4 @@
 - [x] xstrings
 - [x] xslice
 - [ ] xhashmap 
+- [ ] xgenerator
