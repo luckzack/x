@@ -17,7 +17,7 @@ type RedisProxy struct {
 	Pool     *redis.Pool
 }
 
-func New(addr, password string, maxIdle, maxActive int, idleTimeout time.Duration, db int) (*RedisModel, error) {
+func New(addr, password string, maxIdle, maxActive int, idleTimeout time.Duration, db int) (*RedisProxy, error) {
 	if addr == "" {
 		return nil, errors.New("Invalid parameters 'addr'.")
 	}
@@ -31,7 +31,7 @@ func New(addr, password string, maxIdle, maxActive int, idleTimeout time.Duratio
 	r.Pool = &redis.Pool{
 		MaxIdle:     maxIdle,
 		MaxActive:   maxActive,
-		IdleTimeout: idleTimeout, //240 * time.Second,
+		IdleTimeout: idleTimeout,
 		Dial: func() (redis.Conn, error) {
 			//			c, err := redis.Dial("tcp", redisConfig.Addr)
 			c, err := redis.Dial("tcp", addr, redis.DialPassword(password), redis.DialDatabase(db))
@@ -49,7 +49,7 @@ func New(addr, password string, maxIdle, maxActive int, idleTimeout time.Duratio
 	return &r, nil
 }
 
-func (r RedisModel) Close() {
+func (r RedisProxy) Close() {
 	if r.Pool != nil {
 		r.Pool.Close()
 		r.Pool = nil
@@ -65,15 +65,15 @@ func PingRedis(c redis.Conn, t time.Time) error {
 	return err
 }
 
-func (r RedisModel) GetConn() redis.Conn {
+func (r RedisProxy) GetConn() redis.Conn {
 	return r.Pool.Get()
 }
 
-func (r RedisModel) PubSubConn() redis.PubSubConn {
+func (r RedisProxy) PubSubConn() redis.PubSubConn {
 	return redis.PubSubConn{r.Pool.Get()}
 }
 
-func (r RedisModel) Publish(subject string, content interface{}) (reply interface{}, err error) {
+func (r RedisProxy) Publish(subject string, content interface{}) (reply interface{}, err error) {
 	rc := r.Pool.Get()
 	defer rc.Close()
 

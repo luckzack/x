@@ -5,11 +5,11 @@ import (
 )
 
 func UnixTsFormat(ts int64) string {
-	return time.Unix(ts, 0).Format("2006-01-02 15:04:05")
+	return time.Unix(ts, 0).Format(YYYYMMDDhhmmss)
 }
 
 func UnixTsFormatMinute(ts int64) string {
-	return time.Unix(ts, 0).Format("2006-01-02 15:04")
+	return time.Unix(ts, 0).Format(YYYYMMDDhhmm)
 }
 
 func UnixMillisecond() int64 {
@@ -24,7 +24,7 @@ func NowDate() string {
 //"2016-11-02 05:14:25"
 func Parse(timestr string) (int64, error) {
 	//t, err := time.ParseInLocation("2006-01-02 15:04:05", "2016-11-02 05:14:25", time.Local)
-	t, err := time.ParseInLocation("2006-01-02 15:04:05", timestr, time.Local)
+	t, err := time.ParseInLocation(YYYYMMDDhhmmss, timestr, time.Local)
 	if err != nil {
 		return 0, err
 	}
@@ -32,11 +32,11 @@ func Parse(timestr string) (int64, error) {
 }
 
 func DayStartTime(ti time.Time) (int64, error) {
-	return Parse(ti.Format("2006-01-02 00:00:00"))
+	return Parse(ti.Format(YYYYMMDD000000))
 }
 
 func DayStart(ti time.Time) string {
-	return ti.Format("2006-01-02 00:00:00")
+	return ti.Format(YYYYMMDD000000)
 }
 
 func DayEndTime(ti time.Time) (int64, error) {
@@ -56,9 +56,9 @@ func IsWeekend(t time.Time) bool {
 	case "Wednesday":
 		fallthrough
 	case "Thursday":
-		return false
-	case "Friday":
 		fallthrough
+	case "Friday":
+		return false
 	case "Saturday":
 		fallthrough
 	case "Sunday":
