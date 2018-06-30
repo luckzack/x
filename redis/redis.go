@@ -9,9 +9,7 @@ import (
 	"errors"
 )
 
-//var RedisConnPool *redis.Pool
-
-type RedisModel struct {
+type RedisProxy struct {
 	Addr     string
 	Password string
 	DB       int

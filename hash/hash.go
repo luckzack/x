@@ -1,10 +1,10 @@
-package utils
+package hash
 
 import (
 	"crypto/md5"
+	"crypto/sha1"
 	"fmt"
 	"io"
-	"crypto/sha1"
 )
 
 func Md5(raw string) string {

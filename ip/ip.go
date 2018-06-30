@@ -1,10 +1,10 @@
-package utils
+package ip
 
 import (
-	"fmt"
-	"strings"
-	"strconv"
 	"errors"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 type IntIP struct {
