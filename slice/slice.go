@@ -1,4 +1,4 @@
-package slicer
+package slice
 
 const default_size = 10
 
