@@ -2,7 +2,7 @@ package slice
 
 const default_size = 10
 
-func SliceStrings(src []string, args ...int) (dst [][]string) {
+func SplitStrings(src []string, args ...int) (dst [][]string) {
 	var size int
 	if len(args) < 1 {
 		size = default_size
