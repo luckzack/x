@@ -16,5 +16,10 @@ func FloatToStr(f float64) string {
 }
 
 func StrToFloat(s string) float64 {
-
+	f, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return 0
+	} else {
+		return f
+	}
 }
