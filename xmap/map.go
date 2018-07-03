@@ -1,6 +1,6 @@
-package utils
+package xmap
 
-func KeysOfMap(m map[string]string) []string {
+func Keys(m map[string]interface{}) []string {
 	keys := make([]string, len(m))
 	i := 0
 	for key, _ := range m {

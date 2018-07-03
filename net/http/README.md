@@ -1,4 +1,4 @@
-Forked from github.com/astaxie/beego/httplib.
+`httplib` was forked from `github.com/astaxie/beego/httplib`.
 
 ---
 

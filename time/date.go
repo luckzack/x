@@ -4,6 +4,9 @@ import (
 	"time"
 )
 
+func Format(t time.Time) string {
+	return t.Format(YYYYMMDDhhmmss)
+}
 func UnixTsFormat(ts int64) string {
 	return time.Unix(ts, 0).Format(YYYYMMDDhhmmss)
 }
