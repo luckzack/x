@@ -25,7 +25,7 @@ var (
 // rand.Rand instance with a fixed seed and using it for each call,
 // the same random sequence of strings can be generated repeatedly
 // and predictably.
-func RandomSpec0(count uint, start, end int, letters, numbers bool,
+func Spec0(count uint, start, end int, letters, numbers bool,
 	chars []rune, rand *rand.Rand) string {
 	if count == 0 {
 		return ""
@@ -93,8 +93,8 @@ func RandomSpec0(count uint, start, end int, letters, numbers bool,
 //                 alphabetic characters
 // Param numbers - if true, generated string will include
 //                 numeric characters
-func RandomSpec1(count uint, start, end int, letters, numbers bool) string {
-	return RandomSpec0(count, start, end, letters, numbers, nil, defaultRand)
+func Spec1(count uint, start, end int, letters, numbers bool) string {
+	return Spec0(count, start, end, letters, numbers, nil, defaultRand)
 }
 
 // Creates a random string whose length is the number of characters specified.
@@ -107,20 +107,20 @@ func RandomSpec1(count uint, start, end int, letters, numbers bool) string {
 //                 alphabetic characters
 // Param numbers - if true, generated string will include
 //                 numeric characters
-func RandomAlphaOrNumeric(count uint, letters, numbers bool) string {
-	return RandomSpec1(count, 0, 0, letters, numbers)
+func AlphaOrNumeric(count uint, letters, numbers bool) string {
+	return Spec1(count, 0, 0, letters, numbers)
 }
 
-func RandomString(count uint) string {
-	return RandomAlphaOrNumeric(count, false, false)
+func String(count uint) string {
+	return AlphaOrNumeric(count, false, false)
 }
 
-func RandomStringSpec0(count uint, set []rune) string {
-	return RandomSpec0(count, 0, len(set)-1, false, false, set, defaultRand)
+func StringSpec0(count uint, set []rune) string {
+	return Spec0(count, 0, len(set)-1, false, false, set, defaultRand)
 }
 
-func RandomStringSpec1(count uint, set string) string {
-	return RandomStringSpec0(count, []rune(set))
+func StringSpec1(count uint, set string) string {
+	return StringSpec0(count, []rune(set))
 }
 
 // Creates a random string whose length is the number of characters
@@ -128,34 +128,34 @@ func RandomStringSpec1(count uint, set string) string {
 //
 // Characters will be chosen from the set of characters whose
 // ASCII value is between 32 and 126 (inclusive).
-func RandomAscii(count uint) string {
-	return RandomSpec1(count, 32, 127, false, false)
+func Ascii(count uint) string {
+	return Spec1(count, 32, 127, false, false)
 }
 
 // Creates a random string whose length is the number of characters specified.
 // Characters will be chosen from the set of alphabetic characters.
-func RandomAlphabetic(count uint) string {
-	return RandomAlphaOrNumeric(count, true, false)
+func Alphabetic(count uint) string {
+	return AlphaOrNumeric(count, true, false)
 }
 
 // Creates a random string whose length is the number of characters specified.
 // Characters will be chosen from the set of alpha-numeric characters.
-func RandomAlphanumeric(count uint) string {
-	return RandomAlphaOrNumeric(count, true, true)
+func Alphanumeric(count uint) string {
+	return AlphaOrNumeric(count, true, true)
 }
 
 // Creates a random string whose length is the number of characters specified.
 // Characters will be chosen from the set of numeric characters.
-func RandomNumeric(count uint) string {
-	return RandomAlphaOrNumeric(count, false, true)
+func Numeric(count uint) string {
+	return AlphaOrNumeric(count, false, true)
 }
 
-func RandomInt(max int) int {
+func Int(max int) int {
 	return defaultRand.Intn(max)
 }
 
 // 从0到max中随机出n个不重复的数
-func RandomNInt(max, n int) []int {
+func NInt(max, n int) []int {
 	if max < 0 || n < 0 {
 		return []int{}
 	}
@@ -168,7 +168,7 @@ func RandomNInt(max, n int) []int {
 	} else {
 		for i := 0; i < n; i++ {
 		RAND:
-			r := RandomInt(max)
+			r := Int(max)
 			for _, v := range arr {
 				if v == r {
 					goto RAND
@@ -181,12 +181,12 @@ func RandomNInt(max, n int) []int {
 }
 
 // [from, to)
-func RandomRange(from, to int) int {
+func Range(from, to int) int {
 	if from == to {
 		return from
 	}
 	if from > to {
 		panic("'to' mush be bigger than 'from'")
 	}
-	return RandomInt(to-from) + from
+	return Int(to-from) + from
 }
