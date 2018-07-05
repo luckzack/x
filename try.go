@@ -1,4 +1,4 @@
-package workflow
+package x
 
 func Try(f func(), handler func(interface{})) {
 	defer func() {
@@ -6,7 +6,5 @@ func Try(f func(), handler func(interface{})) {
 			handler(err)
 		}
 	}()
-
 	f()
-
 }

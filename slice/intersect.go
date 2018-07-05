@@ -1,6 +1,9 @@
 package slice
 
 func IntersectStrings(slice1, slice2 []string) (s []string) {
+	if len(slice2) < 1 {
+		return
+	}
 
 	m := map[string]bool{}
 
@@ -20,7 +23,6 @@ func IntersectStrings(slice1, slice2 []string) (s []string) {
 		if b {
 			s = append(s, k)
 		}
-
 	}
 
 	return
