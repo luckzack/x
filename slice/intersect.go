@@ -1,7 +1,7 @@
 package slice
 
 func IntersectStrings(slice1, slice2 []string) (s []string) {
-	if len(slice2) < 1 {
+	if len(slice2) < 1 || len(slice1) < 1 {
 		return
 	}
 
