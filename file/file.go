@@ -1,7 +1,9 @@
 package file
 
 import (
+	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -220,4 +222,22 @@ func MustOpenLogFile(fp string) *os.File {
 	}
 
 	return f
+}
+
+func Copy(src, dst string) error {
+	if src == "" || dst == "" {
+		return errors.New("source or dest is null")
+	}
+	source_open, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer source_open.Close()
+	dest_open, err := os.OpenFile(dst, os.O_CREATE|os.O_WRONLY, 644)
+	if err != nil {
+		return err
+	}
+	defer dest_open.Close()
+	_, err = io.Copy(dest_open, source_open)
+	return err
 }
