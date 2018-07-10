@@ -34,6 +34,15 @@ func Parse(timestr string) (int64, error) {
 	return t.Unix(), nil
 }
 
+func ParseNoSecond(timestr string) (int64, error) {
+	//t, err := time.ParseInLocation("2006-01-02 15:04:05", "2016-11-02 05:14:25", time.Local)
+	t, err := time.ParseInLocation(YYYYMMDDhhmm, timestr, time.Local)
+	if err != nil {
+		return 0, err
+	}
+	return t.Unix(), nil
+}
+
 func DayStartTime(ti time.Time) (int64, error) {
 	return Parse(ti.Format(YYYYMMDD000000))
 }
