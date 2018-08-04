@@ -1,4 +1,4 @@
-package dig
+package dns
 
 const (
 	DNS_SEVER_DEFAULT = DNS_SERVER_DNSPOD
