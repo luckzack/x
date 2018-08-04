@@ -5,7 +5,7 @@
 #### Golang DNS  dig功能库
 
 ```sh
-go get github.com/lixiangzhong/dnsutil
+Forcked from github.com/lixiangzhong/dnsutil
 ```
 
 
