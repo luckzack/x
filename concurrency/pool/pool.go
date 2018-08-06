@@ -57,7 +57,7 @@ func New(name string, size uint, timeout uint, ttl ...int) *Pool {
 	}
 
 	if timeout > 0 {
-		p.Timeout = time.Second * time.Duration(timeout)
+		p.Timeout = time.Millisecond * time.Duration(timeout)
 	} else {
 		p.Timeout = default_timeout
 	}
