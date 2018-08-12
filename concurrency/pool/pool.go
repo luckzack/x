@@ -102,7 +102,9 @@ func (p *Pool) GetConn() (*Connection, error) {
 }
 
 func (c *Connection) Release() {
-
+	if c == nil {
+		return
+	}
 	if !c.released {
 		<-c.ctx.pool
 	}
