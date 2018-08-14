@@ -12,7 +12,8 @@ import (
 http://a.b.com:80/path/to/yourfile?a=1#b?
 
 <schema>://<domain>:<port>/<path>/<file_name>:<file_suffix>?<query>#<fragment>
-
+          |              |       |                         |
+          ----hostname---        -------- file ------------
 ***/
 
 //XURL contains the parts of URL after parsing
