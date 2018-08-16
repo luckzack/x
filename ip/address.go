@@ -6,34 +6,41 @@ import (
 	"strings"
 )
 
-func sameIpAddress(ip1, ip2 string) bool {
-	ip1_addr1, ip1_addr2 := ipAddress(ip1)
-	ip2_addr1, ip2_addr2 := ipAddress(ip2)
+type IpAddress struct {
+	Mask int
+	Addr int
+}
 
-	if ip1_addr1 == ip2_addr1 && math.Abs(float64(ip1_addr2-ip2_addr2)) <= 255 {
+func SameIpAddressOfIP(ip1, ip2 string) bool {
+
+	return SameIpAddress(GetIpAddress(ip1), GetIpAddress(ip2))
+}
+
+func SameIpAddress(addr1, addr2 *IpAddress) bool {
+	if addr1.Mask == addr2.Mask && math.Abs(float64(addr1.Addr-addr2.Addr)) <= 255 {
 		return true
 	}
-
 	return false
 }
 
-func ipAddress(ip string) (addr1, addr2 int) {
+func GetIpAddress(ip string) *IpAddress {
 	ips := strings.Split(ip, ".")
 	if len(ips) != 4 {
-		return
+		return nil
 	}
 
+	add := IpAddress{}
 	for k, v := range ips {
 		i, err := strconv.Atoi(v)
 		if err != nil || i > 255 {
-			return
+			return nil
 		}
 		if k == 3 {
-			addr2 = i
+			add.Addr = i
 		} else {
-			addr1 = addr1 | i<<uint(8*(3-k))
+			add.Mask = add.Mask | i<<uint(8*(3-k))
 		}
 
 	}
-	return
+	return &add
 }
