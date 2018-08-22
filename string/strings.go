@@ -13,6 +13,10 @@ func ConcatLong(pieces ...string) string {
 	return buffer.String()
 }
 
-func ConcatShort(pieces ...string) string {
+func Concat(pieces ...string) string {
 	return strings.Join(pieces, "")
+}
+
+func ConcatWith(seperator string, pieces ...string) string {
+	return strings.Join(pieces, seperator)
 }
