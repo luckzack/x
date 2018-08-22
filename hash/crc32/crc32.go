@@ -5,6 +5,8 @@ import (
 )
 
 func EncryptString(v string) uint32 {
+
+	//return crc32.Checksum([]byte(v), crc32.MakeTable(crc32.IEEE))
 	return crc32.ChecksumIEEE([]byte(v))
 }
 

@@ -1,4 +1,4 @@
-package hash
+package hmac
 
 import (
 	"crypto/hmac"
@@ -20,7 +20,7 @@ func main() {
 	fmt.Printf("%x\n", mac.Sum(nil))
 }
 
-func HmacSha1(input, key string) string {
+func Sha1(input, key string) string {
 	mac := hmac.New(sha1.New, []byte(key))
 	mac.Write([]byte(input))
 	//  fmt.Sprintf("%x\n", mac.Sum(nil))
