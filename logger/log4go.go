@@ -52,6 +52,7 @@ import (
 	"runtime"
 	"strings"
 	"time"
+	"unsafe"
 )
 
 // Version information
@@ -306,6 +307,87 @@ func (log Logger) Log(lvl level, source, message string) {
 	}
 }
 
+func (log Logger) Infoln(args ...interface{}) {
+	log.Print(INFO, args...)
+}
+
+func (log Logger) Warnln(args ...interface{}) {
+	log.Print(WARNING, args...)
+}
+
+func (log Logger) Errln(args ...interface{}) {
+	log.Print(ERROR, args...)
+}
+
+func (log Logger) Print(lvl level, args ...interface{}) {
+	skip := true
+
+	// Determine if any logging will be done
+	for _, filt := range log {
+		if lvl >= filt.Level {
+			skip = false
+			break
+		}
+	}
+	if skip {
+		return
+	}
+
+	// Determine caller func
+	_, file, lineno, ok := runtime.Caller(2)
+	var src string
+	if ok {
+		//src = fmt.Sprintf("%s:%d", runtime.FuncForPC(pc).Name(), lineno)
+
+		//arr := strings.Split(file, "/")
+		short := file
+		for i := len(file) - 1; i > 0; i-- {
+			if file[i] == '/' {
+				short = file[i+1:]
+				break
+			}
+		}
+		//file = short
+		src = fmt.Sprintf("%s:%d", short, lineno)
+	}
+
+	//msg := format
+	msg := ""
+	if len(args) > 0 {
+		//msg = fmt.Sprintf(format, args...)
+		msg = fmt.Sprint(args)
+
+		msg = Bytes2str(Str2bytes(msg)[1 : len(msg)-1])
+
+	}
+
+	// Make the log record
+	rec := &LogRecord{
+		Level:   lvl,
+		Created: time.Now(),
+		Source:  src,
+		Message: msg,
+	}
+
+	// Dispatch the logs
+	for _, filt := range log {
+		if lvl < filt.Level {
+			continue
+		}
+		filt.LogWrite(rec)
+	}
+}
+
+func Str2bytes(s string) []byte {
+	x := (*[2]uintptr)(unsafe.Pointer(&s))
+	h := [3]uintptr{x[0], x[1], x[1]}
+	return *(*[]byte)(unsafe.Pointer(&h))
+}
+
+func Bytes2str(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
+}
+
 // Logf logs a formatted log message at the given log level, using the caller as
 // its source.
 func (log Logger) Logf(lvl level, format string, args ...interface{}) {
@@ -414,6 +496,7 @@ func (log Logger) Info(arg0 interface{}, args ...interface{}) {
 	case string:
 		// Use the string as a format string
 		log.intLogf(lvl, first, args...)
+
 	case func() string:
 		// Log the closure (no other arguments used)
 		log.intLogc(lvl, first)
