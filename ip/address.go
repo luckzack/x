@@ -7,7 +7,7 @@ import (
 )
 
 type IpAddress struct {
-	Mask int
+	Mask string
 	Addr int
 }
 
@@ -30,17 +30,21 @@ func GetIpAddress(ip string) *IpAddress {
 	}
 
 	add := IpAddress{}
-	for k, v := range ips {
-		i, err := strconv.Atoi(v)
-		if err != nil || i > 255 {
-			return nil
-		}
-		if k == 3 {
-			add.Addr = i
-		} else {
-			add.Mask = add.Mask | i<<uint(8*(3-k))
-		}
 
-	}
+	add.Mask = strings.Join(ips[0:3], ".")
+	add.Addr, _ = strconv.Atoi(ips[3])
+
+	// for k, v := range ips {
+	// 	i, err := strconv.Atoi(v)
+	// 	if err != nil || i > 255 {
+	// 		return nil
+	// 	}
+	// 	if k == 3 {
+	// 		add.Addr = i
+	// 	} else {
+	// 		add.Mask = add.Mask | i<<uint(8*(3-k))
+	// 	}
+
+	// }
 	return &add
 }
