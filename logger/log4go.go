@@ -48,7 +48,6 @@ package logger
 import (
 	"errors"
 	"fmt"
-	"os"
 	"runtime"
 	"strings"
 	"time"
@@ -137,7 +136,7 @@ type Logger map[string]*Filter
 //
 // DEPRECATED: Use make(Logger) instead.
 func NewLogger() Logger {
-	os.Stderr.WriteString("warning: use of deprecated NewLogger\n")
+	//os.Stderr.WriteString("warning: use of deprecated NewLogger\n")
 	return make(Logger)
 }
 
@@ -146,7 +145,7 @@ func NewLogger() Logger {
 //
 // DEPRECATED: use NewDefaultLogger instead.
 func NewConsoleLogger(lvl level) Logger {
-	os.Stderr.WriteString("warning: use of deprecated NewConsoleLogger\n")
+	//os.Stderr.WriteString("warning: use of deprecated NewConsoleLogger\n")
 	return Logger{
 		"stdout": &Filter{lvl, NewConsoleLogWriter()},
 	}
