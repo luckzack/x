@@ -8,15 +8,14 @@ func IntersectStrings(slice1, slice2 []string) (s []string) {
 	m := map[string]bool{}
 
 	for _, v := range slice1 {
-		m[v] = true
-	}
 
-	for _, v := range slice2 {
-		if m[v] {
-			m[v] = true
-		} else {
-			m[v] = false
+		for _, v2 := range slice2 {
+			if v2 == v {
+				m[v] = true
+				break
+			}
 		}
+
 	}
 
 	for k, b := range m {
