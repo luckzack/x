@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"time"
 )
 
@@ -44,7 +45,7 @@ func (p Pool) String() string {
 }
 
 func New(name string, size uint, timeout uint, ttl ...int) *Pool {
-
+	log.Println("@@@@@@@@@@@@@", name, size, timeout, ttl)
 	p := Pool{
 		Name: name,
 		Size: size,

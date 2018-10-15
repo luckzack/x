@@ -12,6 +12,7 @@ import (
 // Shuffle shuffles Data.
 func Shuffle(data Interface) {
 	rand.Shuffle(data.Len(), data.Swap)
+
 }
 
 // A Shuffler provides Shuffle

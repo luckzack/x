@@ -30,6 +30,10 @@ func Round(val float64, places int) float64 {
 	return t
 }
 
+func RoundInt(val1, val2 int) int {
+	return int(Round(float64(val1)/float64(val2), 0))
+}
+
 func MaxInt(x, y int) int {
 	if x >= y {
 		return x
