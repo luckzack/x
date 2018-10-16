@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	ivDefValue = "Gogoods, go good!"
+	ivDefValue = "Gogoods, go good"
 )
 
 // AES加密, 使用CBC模式，注意key必须为16/24/32位长度，iv初始化向量为非必需参数
@@ -32,7 +32,7 @@ func Encrypt(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
-// AES解密, 使用CBC模式，注意key必须为16/24/32位长度，iv初始化向量为非必需参数
+// AES解密, 使用CBC模式，填充方式为PKCS5Padding，注意key必须为16/24/32位长度，iv初始化向量为非必需参数
 func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
