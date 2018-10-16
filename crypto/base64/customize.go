@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 )
 
-const encoder = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789[!"
+const encoder = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789[>"
 
 // base64 encode
 func DiyEncode(str string) string {
