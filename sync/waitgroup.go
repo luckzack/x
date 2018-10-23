@@ -17,10 +17,13 @@ func (w *WaitGroupWrapper) Wrap(cb func()) {
 }
 
 /**********************************************
- can be used as follows:
+Can be used as follows:
+
+```
 wg := WaitGroupWrapper{}
 wg.Wrap(func() { n.idPump() })
 ...
 wg.Wait()
+```
 
 ************************************************/
