@@ -89,16 +89,21 @@ func Int(max int) int {
 	return defaultRand.Intn(max)
 }
 
-// 从0到max中随机出n个不重复的数
-func NInt(max, n int) []int {
+// 当max>=n:从0到max中随机出n个不重复的数；当max<n,随机出可能n个可能重复的数
+func NInt(max, n int, repeat ...bool) []int {
 	if max < 0 || n < 0 {
 		return []int{}
 	}
 
 	arr := []int{}
+
 	if max < n {
-		for i := 0; i <= max; i++ {
-			arr = append(arr, i)
+		// for i := 0; i < max; i++ {
+		// 	arr = append(arr, i)
+		// }
+
+		for i := 0; i < n; i++ {
+			arr = append(arr, Int(max))
 		}
 	} else {
 		for i := 0; i < n; i++ {
@@ -111,6 +116,7 @@ func NInt(max, n int) []int {
 			}
 			arr = append(arr, r)
 		}
+
 	}
 	return arr
 }
