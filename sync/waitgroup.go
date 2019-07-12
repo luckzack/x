@@ -16,6 +16,10 @@ func (w *WaitGroupWrapper) Wrap(cb func()) {
 	}()
 }
 
+func (w *WaitGroupWrapper) Count() int{
+	return w.Count()
+}
+
 /**********************************************
 Can be used as follows:
 
