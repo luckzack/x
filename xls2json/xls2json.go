@@ -3,6 +3,7 @@ package xls2json
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/tealeg/xlsx"
@@ -19,13 +20,14 @@ type Options struct {
 	SkipRows []int
 	// 只解析表格中最多多少行，默认无上限
 	MaxRows int
-	// 遇到多少个空行后退出解析，默认1
-	QuitAfterEmptyRows int
+	// 遇到多少个空行怎么处理
+	HandleEmptyRow int //0-默认写入空行，1-skip跳过空行，2-退出
+
 }
 
 var DefaultOptions = &Options{
 	StartRow:           0,
-	QuitAfterEmptyRows: 1,
+	HandleEmptyRow: 0,
 }
 var DefaultSheetName = "Sheet1"
 
@@ -123,11 +125,23 @@ func parseSheetDataToJson(sheetName string, sheetData *xlsx.Sheet, options *Opti
 		if rowIndex != 0 {
 			jsonMap = make(map[string]interface{})
 		}
+
+		fmt.Printf("row idx: %d\n", rowIndex)
+		if len(row.Cells)<1 {
+			if options.HandleEmptyRow == 1 {
+				continue
+			}else if options.HandleEmptyRow == 2 {
+				break
+			}
+		}
+
 		for cellIndex, cell := range row.Cells {
+			fmt.Printf("cell idx: %d, val: %s \n", cellIndex, cell.Value)
 
 			if len(options.CustomHeaders) > 0 && cellIndex >= len(options.CustomHeaders) {
 				break
 			}
+			cell.Value = strings.TrimSpace(cell.Value)
 
 			if setHeader {
 				if len(options.CustomHeaders) > 0 {
@@ -154,6 +168,7 @@ func parseSheetDataToJson(sheetName string, sheetData *xlsx.Sheet, options *Opti
 		}
 
 	}
+
 	jsonBytes, err := json.MarshalIndent(&info, "", "	")
 	if err != nil {
 		return nil, err
