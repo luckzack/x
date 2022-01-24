@@ -1,7 +1,7 @@
 package weight
 
 import (
-	"StreamGuider/common/utils"
+	"github.com/gogoods/x/random"
 	//"fmt"
 )
 
@@ -22,7 +22,7 @@ func SelectOne(weights ...int) int{
 
 	}
 
-	v1 := utils.RandomInt(sum)
+	v1 := random.Int(sum)
 
 	//fmt.Println("===", sum)
 	//fmt.Println("fields:", fields)

@@ -1,9 +1,9 @@
 package weight
 
 import (
-	"athena-v4/common/utils"
 	"encoding/json"
 	"errors"
+	"github.com/gogoods/x/random"
 )
 
 type Unit struct {
@@ -52,7 +52,7 @@ func NewCalculator(units [][]int) (*Calculator, error) {
 func (this Calculator) Calculate() (idx int, value int) {
 	idx = SelectOne(this.Weights...)
 	hit_unit := this.Units[idx]
-	value = utils.RandomRange(hit_unit.From, hit_unit.To)
+	value = random.Range(hit_unit.From, hit_unit.To)
 	return
 }
 
