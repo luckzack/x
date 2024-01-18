@@ -14,5 +14,7 @@ require (
 	github.com/shogo82148/go-shuffle v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/tealeg/xlsx v1.0.5
+	github.com/tidwall/match v1.1.1
+	github.com/tidwall/pretty v1.2.1
 	github.com/wangtuanjie/ip17mon v1.5.2
 )
