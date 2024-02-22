@@ -17,9 +17,9 @@
 - [x] xrandom
 - [x] xvalidator
 - [x] xurl
-- [ ] xhashmap 
-- [ ] xgenerator
-- [ ] xprom
+- [x] xmap 
+- [x] cast
+- [x] xprom
 - [x] xfile
 - [x] xsync
 
