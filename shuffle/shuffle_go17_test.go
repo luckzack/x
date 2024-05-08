@@ -1,18 +1,17 @@
-//+build go1.7
+//go:build go1.7
+// +build go1.7
 
-package shuffle_test
+package shuffle
 
 import (
 	"fmt"
 	"math/rand"
 	"testing"
-
-	"github.com/shogo82148/go-shuffle"
 )
 
 func ExampleInts() {
 	x := []int{1, 2, 3, 4, 5}
-	shuffle.Ints(x)
+	Ints(x)
 	for _, value := range x {
 		fmt.Println(value)
 		// Unordered output:
@@ -30,7 +29,7 @@ func BenchmarkInts(b *testing.B) {
 		b.Run(fmt.Sprintf("shuffle %d", n), func(b *testing.B) {
 			a := make([]int, n)
 			for i := 0; i < b.N; i++ {
-				shuffle.Ints(a)
+				Ints(a)
 			}
 		})
 
@@ -59,7 +58,7 @@ func BenchmarkFloat64s(b *testing.B) {
 		b.Run(fmt.Sprintf("shuffle %d", n), func(b *testing.B) {
 			a := make([]float64, n)
 			for i := 0; i < b.N; i++ {
-				shuffle.Float64s(a)
+				Float64s(a)
 			}
 		})
 
